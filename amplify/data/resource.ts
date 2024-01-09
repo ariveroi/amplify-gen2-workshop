@@ -12,7 +12,11 @@ const retailStoreSchema = a.schema({
       rating: a.float(),
       style: a.string(),
     })
-    .authorization([a.allow.public()]),
+    .authorization([
+      a.allow.public().to(["read"]),
+      a.allow.owner(),
+      a.allow.specificGroup("Admin"),
+    ]),
   Category: a
     .model({
       id: a.id().required(),
@@ -22,7 +26,11 @@ const retailStoreSchema = a.schema({
       styles: a.string().array(),
       products: a.hasMany("Product"), //Define the relationship between Product and Category
     })
-    .authorization([a.allow.public()]),
+    .authorization([
+      a.allow.public().to(["read"]),
+      a.allow.owner(),
+      a.allow.specificGroup("Admin"),
+    ]),
 });
 
 export type Schema = ClientSchema<typeof retailStoreSchema>;

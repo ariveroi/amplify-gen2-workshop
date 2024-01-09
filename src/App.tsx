@@ -1,13 +1,14 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import '@aws-amplify/ui-react/styles.css';
-import { ThemeProvider } from '@aws-amplify/ui-react';
-import { Category, Recommended, Header, Footer, Product } from './components';
+import "@aws-amplify/ui-react/styles.css";
+import { ThemeProvider, Authenticator } from "@aws-amplify/ui-react";
+import { Category, Recommended, Header, Footer, Product } from "./components";
 
 function App() {
   return (
     <ThemeProvider>
+      <Authenticator.Provider>
         <Router>
           <Header />
           <Routes>
@@ -17,6 +18,7 @@ function App() {
           </Routes>
           <Footer />
         </Router>
+      </Authenticator.Provider>
     </ThemeProvider>
   );
 }
