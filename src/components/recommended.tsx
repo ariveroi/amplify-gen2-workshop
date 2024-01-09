@@ -34,14 +34,9 @@ export default function Recommended() {
     async function queryProduct() {
       if (products.length === 0) {
         try {
-          const { errors, data: topProducts } =
-            await client.models.Product.list({
-              limit: 5,
-            });
-          if (errors) throw errors;
-          setProducts(
-            topProducts.sort((a, b) => (a.rating! > b.rating! ? 1 : -1))
-          );
+          const data = await fetch("/products")
+          const topProducts = (await data.json()) as Schema["Product"][]
+          setProducts(topProducts.sort((a, b) => (a.rating! - b.rating!) ? 1 : -1)
         } catch (error) {
           console.log("Error retrieving products", error);
         }
