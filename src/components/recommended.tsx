@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
-import { generateClient } from 'aws-amplify/api';
-import { useBreakpointValue } from '@aws-amplify/ui-react';
+import { useState, useEffect } from "react";
+import { generateClient } from "aws-amplify/api";
+import { useBreakpointValue } from "@aws-amplify/ui-react";
 
-import Navigation from './navigation';
-import AdminControls from './adminControls';
-import ProductSmallCollection from './productSmallCollection';
+import Navigation from "./navigation";
+import AdminControls from "./adminControls";
+import ProductSmallCollection from "./productSmallCollection";
 
-import AppLayout from '@cloudscape-design/components/app-layout';
-import Container from '@cloudscape-design/components/container';
-import Header from '@cloudscape-design/components/header';
-import ContentLayout from '@cloudscape-design/components/content-layout';
-import Alert from '@cloudscape-design/components/alert';
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import { type Schema } from '../../amplify/data/resource';
+import AppLayout from "@cloudscape-design/components/app-layout";
+import Container from "@cloudscape-design/components/container";
+import Header from "@cloudscape-design/components/header";
+import ContentLayout from "@cloudscape-design/components/content-layout";
+import Alert from "@cloudscape-design/components/alert";
+import SpaceBetween from "@cloudscape-design/components/space-between";
+import { type Schema } from "../../amplify/data/resource";
 
 interface AlertStatus {
-  type: string,
-  message: string
+  type: string;
+  message: string;
 }
 
 export default function Recommended() {
@@ -24,8 +24,8 @@ export default function Recommended() {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertStatus, setAlertStatus] = useState({
-    type: 'success',
-    message: 'Success!',
+    type: "success",
+    message: "Success!",
   });
 
   useEffect(() => {
@@ -34,9 +34,11 @@ export default function Recommended() {
     async function queryProduct() {
       if (products.length === 0) {
         try {
-          const data = await fetch("/products")
-          const topProducts = (await data.json()) as Schema["Product"][]
-          setProducts(topProducts.sort((a, b) => (a.rating! - b.rating!) ? 1 : -1)
+          const data = await fetch("/products");
+          const topProducts = (await data.json()) as Schema["Product"][];
+          setProducts(
+            topProducts.sort((a, b) => (a.rating! - b.rating! ? 1 : -1))
+          );
         } catch (error) {
           console.log("Error retrieving products", error);
         }
